@@ -5,13 +5,17 @@ const registry = require('ld-cryptosuite-registry')
 const $id = Symbol('id')
 const $type = Symbol('type')
 const $owner = Symbol('owner')
-const $publicKeyPem = Symbol('publicKeyPem')
-const $publicKeyJwk = Symbol('publicKeyJwk')
 const $publicKeyHex = Symbol('publicKeyHex')
+const $publicKeyJwk = Symbol('publicKeyJwk')
+const $publicKeyPem = Symbol('publicKeyPem')
 const $publicKeyBase58 = Symbol('publicKeyBase58')
 const $publicKeyBase64 = Symbol('publicKeyBase64')
 
 class PublicKey {
+  static fromJSON(json) {
+    return new PublicKey(json)
+  }
+
   constructor(opts) {
     if (!opts || 'object' != typeof opts || Array.isArray(opts)) {
       throw new TypeError("PublicKey: Expecting an object.")
@@ -33,9 +37,9 @@ class PublicKey {
       throw new TypeError("PublicKey: Expecting owner to be a string.")
     }
 
-    check('publicKeyPem')
-    check('publicKeyJwk')
     check('publicKeyHex')
+    check('publicKeyJwk')
+    check('publicKeyPem')
     check('publicKeyBase58')
     check('publicKeyBase64')
 
@@ -43,9 +47,9 @@ class PublicKey {
     this[$type] = opts.type
     this[$owner] = opts.owner || opts.id
 
-    this[$publicKeyPem] = opts.publicKeyPem || null
-    this[$publicKeyJwk] = opts.publicKeyJwk || null
     this[$publicKeyHex] = opts.publicKeyHex || null
+    this[$publicKeyJwk] = opts.publicKeyJwk || null
+    this[$publicKeyPem] = opts.publicKeyPem || null
     this[$publicKeyBase58] = opts.publicKeyBase58 || null
     this[$publicKeyBase64] = opts.publicKeyBase64 || null
 
@@ -60,32 +64,22 @@ class PublicKey {
   get type() { return this[$type] }
   get owner() { return this[$owner] }
 
-  get publicKeyPem() { return this[$publicKeyPem] }
-  get publicKeyJwk() { return this[$publicKeyJwk] }
   get publicKeyHex() { return this[$publicKeyHex] }
+  get publicKeyJwk() { return this[$publicKeyJwk] }
+  get publicKeyPem() { return this[$publicKeyPem] }
   get publicKeyBase58() { return this[$publicKeyBase58] }
   get publicKeyBase64() { return this[$publicKeyBase64] }
 
   toJSON() {
-    const { id, type, owner } = this
-    const json = { id, type, owner }
-    pick(this, [
-      'publicKeyPem',
-      'publicKeyJwk',
-      'publicKeyHex',
-      'publicKeyBase58',
-      'publicKeyBase64'
-    ])
-
-    return json
-
-    function pick(pk, priority) {
-      for (const k of priority) {
-        if (null != pk[k]) {
-          json[k] = pk[k]
-          break
-        }
-      }
+    return {
+      id: this[$id],
+      type: this[$type],
+      owner: this[$owner],
+      publicKeyHex: this[$publicKeyHex],
+      publicKeyJwk: this[$publicKeyJwk],
+      publicKeyPem: this[$publicKeyPem],
+      publicKeyBase58: this[$publicKeyBase58],
+      publicKeyBase64: this[$publicKeyBase64],
     }
   }
 }

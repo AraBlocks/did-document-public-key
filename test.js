@@ -115,21 +115,3 @@ test("new PublicKey({id, type, publicKeyBase64})", (t) => {
   t.true(publicKeyBase64 == pk.publicKeyBase64)
   t.end()
 })
-
-test("PublicKey#toJSON()", (t) => {
-  const id = 'did:test:1234'
-  const type = registry.Ed25519VerificationKey2018
-  t.false('publicKeyPem' in toJSON(new PublicKey({id, type})))
-  t.false('publicKeyJwk' in toJSON(new PublicKey({id, type})))
-  t.false('publicKeyHex' in toJSON(new PublicKey({id, type})))
-  t.false('publicKeyBase58' in toJSON(new PublicKey({id, type})))
-  t.false('publicKeyBase64' in toJSON(new PublicKey({id, type})))
-
-  t.true('publicKeyPem' in toJSON(new PublicKey({id, type, publicKeyPem: 'key'})))
-  t.true('publicKeyJwk' in toJSON(new PublicKey({id, type, publicKeyJwk: 'key'})))
-  t.true('publicKeyHex' in toJSON(new PublicKey({id, type, publicKeyHex: 'key'})))
-  t.true('publicKeyBase58' in toJSON(new PublicKey({id, type, publicKeyBase58: 'key'})))
-  t.true('publicKeyBase64' in toJSON(new PublicKey({id, type, publicKeyBase64: 'key'})))
-
-  t.end()
-})

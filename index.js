@@ -70,8 +70,12 @@ class PublicKey {
   get publicKeyBase58() { return this[$publicKeyBase58] }
   get publicKeyBase64() { return this[$publicKeyBase64] }
 
+  [require('util').inspect.custom]() {
+    return Object.assign(new class DIDPublicKey {}, this.toJSON())
+  }
+
   toJSON() {
-    return {
+    const json = {
       id: this[$id],
       type: this[$type],
       owner: this[$owner],
@@ -81,6 +85,12 @@ class PublicKey {
       publicKeyBase58: this[$publicKeyBase58],
       publicKeyBase64: this[$publicKeyBase64],
     }
+
+    for (const k in json) {
+      if (null == json[k]) { delete json[k] }
+    }
+
+    return json
   }
 }
 

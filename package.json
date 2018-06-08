@@ -4,7 +4,7 @@
   "description": "Decentralized Identity (DID) Document (DDO) Public Key interface",
   "main": "index.js",
   "scripts": {
-    "test": "node test"
+    "test": "ava test",
   },
   "keywords": [
     "decentralized",
@@ -20,6 +20,6 @@
     "ld-cryptosuite-registry": "^0.1.x"
   },
   "devDependencies": {
-    "tape": "^4.9.0"
+    "ava": "^0.25.0",
   }
 }

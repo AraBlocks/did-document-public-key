@@ -2,7 +2,7 @@
 
 const registry = require('ld-cryptosuite-registry')
 const { PublicKey } = require('./')
-const test = require('tape')
+const { test } = require('ava')
 
 function toJSON(pk) {
   return pk.toJSON()

@@ -17,7 +17,7 @@
   "author": "Joseph Werle <werle@littlstar.com>",
   "license": "MIT",
   "dependencies": {
-    "ld-cryptosuite-registry": "^0.1.x"
+    "ld-cryptosuite-registry": "*"
   },
   "devDependencies": {
     "tape": "^4.9.0"

@@ -1,5 +1,3 @@
-'use strict'
-
 const registry = require('ld-cryptosuite-registry')
 
 const $id = Symbol('id')
@@ -17,24 +15,24 @@ class PublicKey {
   }
 
   constructor(opts) {
-    if (!opts || 'object' != typeof opts || Array.isArray(opts)) {
-      throw new TypeError("PublicKey: Expecting an object.")
+    if (!opts || 'object' !== typeof opts || Array.isArray(opts)) {
+      throw new TypeError('Expecting an object.')
     }
 
-    if (!opts.id || 'string' != typeof opts.id) {
-      throw new TypeError("PublicKey: Expecting id to be a string.")
+    if (!opts.id || 'string' !== typeof opts.id) {
+      throw new TypeError('Expecting id to be a string.')
     }
 
-    if (!opts.type || 'string' != typeof opts.type) {
-      throw new TypeError("PublicKey: Expecting type to be a string.")
+    if (!opts.type || 'string' !== typeof opts.type) {
+      throw new TypeError('Expecting type to be a string.')
     }
 
-    if (false == registry.has(opts.type)) {
-      throw new TypeError("PublicKey: Expecting valid 'ld-cryptosuite-registry' value.")
+    if (false === registry.has(opts.type)) {
+      throw new TypeError('Expecting valid \'ld-cryptosuite-registry\' value.')
     }
 
-    if ('owner' in opts && 'string' != typeof opts.owner) {
-      throw new TypeError("PublicKey: Expecting owner to be a string.")
+    if ('owner' in opts && 'string' !== typeof opts.owner) {
+      throw new TypeError('Expecting owner to be a string.')
     }
 
     check('publicKeyHex')
@@ -54,8 +52,8 @@ class PublicKey {
     this[$publicKeyBase64] = opts.publicKeyBase64 || null
 
     function check(key) {
-      if (key in opts && ('string' != typeof opts[key] || !opts[key])) {
-        throw new TypeError(`PublicKey: Expecting ${key} to be a string.`)
+      if (key in opts && ('string' !== typeof opts[key] || !opts[key])) {
+        throw new TypeError(`Expecting ${key} to be a string.`)
       }
     }
   }
@@ -70,7 +68,9 @@ class PublicKey {
   get publicKeyBase58() { return this[$publicKeyBase58] }
   get publicKeyBase64() { return this[$publicKeyBase64] }
 
+  // eslint-disable-next-line global-require
   [require('util').inspect.custom]() {
+    // eslint-disable-next-line new-parens
     return Object.assign(new class DIDPublicKey {}, this.toJSON())
   }
 

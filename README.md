@@ -39,7 +39,8 @@ where `opts` should be:
 {
   id: String // A valid DID URI
   type: String // A valid type from 'ld-cryptosuite-registry'
-  owner: String // An optional DID who owns this public key, defaults to id
+  owner: String // DEPRECATED: Use 'opts.controller'
+  controller: String // An optional DID who owns this public key, defaults to id
 }
 ```
 

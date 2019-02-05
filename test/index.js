@@ -28,10 +28,17 @@ test.cb('new PublicKey(opts) throws', (t) => {
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: [] }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: 123 }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: 'SOME TYPE' }), TypeError)
+
+  // DEPRECATED
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, owner: null }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, owner: false }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, owner: {} }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, owner: 123 }), TypeError)
+
+  t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, controller: null }), TypeError)
+  t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, controller: false }), TypeError)
+  t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, controller: {} }), TypeError)
+  t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, controller: 123 }), TypeError)
 
   t.end()
 })
@@ -44,7 +51,6 @@ test.cb('new PublicKey({id, type})', (t) => {
   t.true('object' === typeof pk)
   t.true(id === pk.id)
   t.true(type === pk.type)
-  t.true(id === pk.owner)
   t.true(!pk.publicKeyPem)
   t.true(!pk.publicKeyJwk)
   t.true(!pk.publicKeyHex)
@@ -53,16 +59,16 @@ test.cb('new PublicKey({id, type})', (t) => {
   t.end()
 })
 
-test.cb('new PublicKey({id, type, owner})', (t) => {
+test.cb('new PublicKey({id, type, controller})', (t) => {
   const id = 'did:test:1234'
   const type = registry.Ed25519VerificationKey2018
-  const owner = 'did:test:5678'
-  const pk = new PublicKey({ id, type, owner })
+  const controller = 'did:test:5678'
+  const pk = new PublicKey({ id, type, controller })
 
   t.true('object' === typeof pk)
   t.true(id === pk.id)
   t.true(type === pk.type)
-  t.true(owner === pk.owner)
+  t.true(controller === pk.controller)
   t.end()
 })
 

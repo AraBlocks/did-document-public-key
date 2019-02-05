@@ -3,6 +3,7 @@ const registry = require('ld-cryptosuite-registry')
 const $id = Symbol('id')
 const $type = Symbol('type')
 const $owner = Symbol('owner')
+const $controller = Symbol('controller')
 const $publicKeyHex = Symbol('publicKeyHex')
 const $publicKeyJwk = Symbol('publicKeyJwk')
 const $publicKeyPem = Symbol('publicKeyPem')
@@ -35,6 +36,10 @@ class PublicKey {
       throw new TypeError('Expecting owner to be a string.')
     }
 
+    if ('controller' in opts && 'string' !== typeof opts.controller) {
+      throw new TypeError('Expecting controller to be a string.')
+    }
+
     check('publicKeyHex')
     check('publicKeyJwk')
     check('publicKeyPem')
@@ -43,7 +48,8 @@ class PublicKey {
 
     this[$id] = opts.id
     this[$type] = opts.type
-    this[$owner] = opts.owner || opts.id
+    this[$owner] = opts.owner
+    this[$controller] = opts.controller || opts.owner
 
     this[$publicKeyHex] = opts.publicKeyHex || null
     this[$publicKeyJwk] = opts.publicKeyJwk || null
@@ -61,6 +67,7 @@ class PublicKey {
   get id() { return this[$id] }
   get type() { return this[$type] }
   get owner() { return this[$owner] }
+  get controller() { return this[$controller] }
 
   get publicKeyHex() { return this[$publicKeyHex] }
   get publicKeyJwk() { return this[$publicKeyJwk] }
@@ -79,6 +86,7 @@ class PublicKey {
       id: this[$id],
       type: this[$type],
       owner: this[$owner],
+      controller: this[$controller],
       publicKeyHex: this[$publicKeyHex],
       publicKeyJwk: this[$publicKeyJwk],
       publicKeyPem: this[$publicKeyPem],

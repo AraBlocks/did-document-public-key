@@ -1,5 +1,3 @@
-const registry = require('ld-cryptosuite-registry')
-
 const $id = Symbol('id')
 const $type = Symbol('type')
 const $owner = Symbol('owner')
@@ -26,10 +24,6 @@ class PublicKey {
 
     if (!opts.type || 'string' !== typeof opts.type) {
       throw new TypeError('Expecting type to be a string.')
-    }
-
-    if (false === registry.has(opts.type)) {
-      throw new TypeError('Expecting valid \'ld-cryptosuite-registry\' value.')
     }
 
     if ('owner' in opts && 'string' !== typeof opts.owner) {

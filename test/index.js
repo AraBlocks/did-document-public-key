@@ -27,7 +27,6 @@ test.cb('new PublicKey(opts) throws', (t) => {
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: {} }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: [] }), TypeError)
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: 123 }), TypeError)
-  t.throws(() => new PublicKey({ id: 'did:foo:123', type: 'SOME TYPE' }), TypeError)
 
   // DEPRECATED
   t.throws(() => new PublicKey({ id: 'did:foo:123', type: registry.RsaVerificationKey2018, owner: null }), TypeError)

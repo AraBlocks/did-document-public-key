@@ -1,6 +1,6 @@
 {
   "name": "did-document-public-key",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Decentralized Identity (DID) Document (DDO) Public Key interface",
   "main": "index.js",
   "scripts": {
